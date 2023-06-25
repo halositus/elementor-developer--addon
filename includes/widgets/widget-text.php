@@ -39,8 +39,8 @@ class TextWidget extends Widget_Base
     public function __construct($data = array(), $args = null)
     {
         parent::__construct($data, $args);
-        wp_enqueue_style('text-widget', plugins_url('/assets/css/text-widget-style.css', ELEMENTORADDONS), array(), '1.0.0');
-        wp_enqueue_script('text-widget', plugins_url('/assets/js/text-widget-style.js', ELEMENTORADDONS), array('jquery'), '1.0.0', true);
+        wp_register_style('text-widget', plugins_url('/assets/css/text-widget-style.css', ELEMENTORADDONS), array(), '1.0.0');
+        wp_register_script('text-widget', plugins_url('/assets/js/text-widget-style.js', ELEMENTORADDONS), array('jquery'), '1.0.0');
     }
 
     /**
@@ -105,6 +105,20 @@ class TextWidget extends Widget_Base
 	}
 
     /**
+	 * Enqueue script.
+	 */
+	public function get_script_depends() {
+		return array( 'text-widget' );
+	}
+
+    /**
+	 * Enqueue styles.
+	 */
+	public function get_style_depends() {
+		return array( 'text-widget' );
+	}
+
+    /**
      * Register the widget controls.
      *
      * Adds different input fields to allow the user to change and customize the widget settings.
@@ -113,7 +127,7 @@ class TextWidget extends Widget_Base
      *
      * @access protected
      */
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'section_content',
